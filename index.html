@@ -7,6 +7,16 @@
 <title>Akram Mahdid</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Akram Mahdid, video and content creator based in Algiers.">
+<meta name="theme-color" content="#E9F3FF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231D5CFF'/%3E%3Cstop offset='1' stop-color='%2318B4FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M25 19v26l21-13z' fill='%23fff'/%3E%3C/svg%3E">
+<!-- Link previews (WhatsApp, Instagram, LinkedIn…) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Akram Mahdid">
+<meta property="og:title" content="Akram Mahdid · Video and content creator">
+<meta property="og:description" content="Video and content creator based in Algiers: filming, editing, motion design, color grading and voice-over.">
+<meta property="og:url" content="https://akrammahdid.github.io/">
+<meta property="og:image" content="https://akrammahdid.github.io/photo.jpg">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Fonts load without holding up the first paint -->
@@ -82,9 +92,13 @@ section { padding-block: clamp(56px, 9vw, 112px); }
    has to be redrawn each frame while the page scrolls over the moving liquid. */
 @property --mx { syntax: "*"; inherits: false; }
 @property --my { syntax: "*"; inherits: false; }
+/* The pointer light is the top background layer of the panel itself: --mx/--my don't inherit,
+   so a pseudo-element could never read them. */
 .glass {
   position: relative; isolation: isolate;
-  background: linear-gradient(150deg, var(--glass-strong), var(--glass));
+  background:
+    radial-gradient(340px circle at var(--mx, 18%) var(--my, 0%), rgba(255, 255, 255, .75), transparent 60%),
+    linear-gradient(150deg, var(--glass-strong), var(--glass));
   border-radius: var(--r-lg);
   box-shadow:
     inset 0 1px 1px var(--glass-edge),
@@ -97,10 +111,6 @@ section { padding-block: clamp(56px, 9vw, 112px); }
   background: linear-gradient(150deg, rgba(255, 255, 255, .98), rgba(255, 255, 255, .25) 32%, rgba(255, 255, 255, .06) 62%, rgba(255, 255, 255, .75));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
-}
-.glass::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
-  background: radial-gradient(340px circle at var(--mx, 18%) var(--my, 0%), rgba(255, 255, 255, .75), transparent 60%);
 }
 
 /* ---------- Shared bits ---------- */
@@ -160,8 +170,12 @@ html[lang="ar"] .sec-head h2 { line-height: 1.3; font-weight: 800; }
 .lang button[aria-pressed="true"] { background: #FFFFFF; color: var(--ink); box-shadow: 0 3px 10px -2px var(--shadow); }
 @media (max-width: 860px) { .nav { display: none; } }
 @media (max-width: 520px) {
-  .top { padding-inline-start: 16px; }
-  .top .btn-label { display: none; }
+  /* Tighter header so the full name fits on a phone */
+  .top { gap: 10px; padding-inline-start: 14px; }
+  .brand { font-size: clamp(12px, 3.6vw, 16px); }
+  .lang button { padding-inline: 9px; }
+  /* Icon-only button: the label stays for screen readers */
+  .top .btn-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .top .btn-sm { padding: 11px; }
 }
 
@@ -720,24 +734,14 @@ const CONFIG = {
     { label: "doc", ratio: "16/9", src: "videos/clip-youtube-2.mp4", poster: "videos/clip-youtube-2.jpg" }
   ],
 
-  // Replace with real reviews from your clients.
-  feedback: [
-    { quote: { en: "Paste a real review from a client here. One or two short lines about working with you.",
-               fr: "Collez ici un vrai avis client. Une ou deux phrases courtes sur votre collaboration.",
-               ar: "ضع هنا رأياً حقيقياً من أحد عملائك. سطر أو سطران عن تجربة العمل معك." },
-      name: { en: "Client name", fr: "Nom du client", ar: "اسم العميل" },
-      brand: { en: "Brand · City", fr: "Marque · Ville", ar: "العلامة · المدينة" } },
-    { quote: { en: "A second review goes here. Specific results work best: views, sales, a smooth launch.",
-               fr: "Un deuxième avis ici. Les résultats concrets marchent le mieux : vues, ventes, lancement réussi.",
-               ar: "رأي ثانٍ هنا. النتائج الملموسة هي الأفضل: مشاهدات، مبيعات، إطلاق ناجح." },
-      name: { en: "Client name", fr: "Nom du client", ar: "اسم العميل" },
-      brand: { en: "Brand · City", fr: "Marque · Ville", ar: "العلامة · المدينة" } },
-    { quote: { en: "A third review goes here. Keep it short so it reads at a glance.",
-               fr: "Un troisième avis ici. Restez bref pour qu'il se lise d'un coup d'œil.",
-               ar: "رأي ثالث هنا. اجعله قصيراً ليُقرأ بنظرة واحدة." },
-      name: { en: "Client name", fr: "Nom du client", ar: "اسم العميل" },
-      brand: { en: "Brand · City", fr: "Marque · Ville", ar: "العلامة · المدينة" } }
-  ]
+  // Real reviews from your clients. The "What clients say" section stays hidden
+  // until at least one review is listed here. Each review looks like this:
+  //   { quote: { en: "One or two short lines about working with you.",
+  //              fr: "Une ou deux phrases sur votre collaboration.",
+  //              ar: "سطر أو سطران عن تجربة العمل معك." },
+  //     name: "Client name",
+  //     brand: { en: "Brand · City", fr: "Marque · Ville", ar: "العلامة · المدينة" } },
+  feedback: []
 };
 
 const I18N = {
@@ -762,7 +766,7 @@ const I18N = {
     "contact.title": "Let's make your next <span class=\"grad\">video</span>",
     "place.label": "Based in", "place.city": "Saoula, Algiers", "place.country": "ALGERIA", "place.map": "Open in Google Maps",
     "s.message": "Message", "s.follow": "Follow", "s.connect": "Connect",
-    "foot.role": "Video editor, Algiers", "foot.top": "Back to top", "player.close": "Close",
+    "foot.role": "Video editor, Algiers", "foot.top": "Back to top", "player.close": "Close", "play": "Play",
     "role.shoot": "Shoot", "role.edit": "Edit", "role.color": "Color", "role.motion": "Motion", "role.sound": "Sound", "role.voice": "Voice-over",
     "cat.reel": "Reel", "cat.product": "Product", "cat.event": "Event", "cat.food": "Food", "cat.motion": "Motion", "cat.fashion": "Fashion",
     "cat.interview": "Interview", "cat.story": "Story", "cat.ad": "Ad", "cat.promo": "Promo", "cat.doc": "Documentary",
@@ -789,7 +793,7 @@ const I18N = {
     "contact.title": "Créons votre prochaine <span class=\"grad\">vidéo</span>",
     "place.label": "Basé à", "place.city": "Saoula, Alger", "place.country": "ALGÉRIE", "place.map": "Ouvrir dans Google Maps",
     "s.message": "Écrire", "s.follow": "Suivre", "s.connect": "Se connecter",
-    "foot.role": "Monteur vidéo, Alger", "foot.top": "Haut de page", "player.close": "Fermer",
+    "foot.role": "Monteur vidéo, Alger", "foot.top": "Haut de page", "player.close": "Fermer", "play": "Lire",
     "role.shoot": "Tournage", "role.edit": "Montage", "role.color": "Étalonnage", "role.motion": "Motion", "role.sound": "Son", "role.voice": "Voix off",
     "cat.reel": "Reel", "cat.product": "Produit", "cat.event": "Événement", "cat.food": "Food", "cat.motion": "Motion", "cat.fashion": "Mode",
     "cat.interview": "Interview", "cat.story": "Histoire", "cat.ad": "Pub", "cat.promo": "Promo", "cat.doc": "Documentaire",
@@ -816,7 +820,7 @@ const I18N = {
     "contact.title": "فيديوك القادم يبدأ <span class=\"grad\">هنا</span>",
     "place.label": "مقيم في", "place.city": "السحاولة، الجزائر العاصمة", "place.country": "الجزائر", "place.map": "افتح في خرائط Google",
     "s.message": "راسلني", "s.follow": "تابعني", "s.connect": "أضفني",
-    "foot.role": "مونتير فيديو، الجزائر العاصمة", "foot.top": "العودة للأعلى", "player.close": "إغلاق",
+    "foot.role": "مونتير فيديو، الجزائر العاصمة", "foot.top": "العودة للأعلى", "player.close": "إغلاق", "play": "تشغيل",
     "role.shoot": "تصوير", "role.edit": "مونتاج", "role.color": "الألوان", "role.motion": "موشن", "role.sound": "الصوت", "role.voice": "تعليق صوتي",
     "cat.reel": "ريلز", "cat.product": "منتج", "cat.event": "مناسبة", "cat.food": "أكل", "cat.motion": "موشن", "cat.fashion": "أزياء",
     "cat.interview": "مقابلة", "cat.story": "قصة", "cat.ad": "إعلان", "cat.promo": "ترويجي", "cat.doc": "وثائقي",
@@ -899,9 +903,9 @@ const I18N = {
       : `<canvas data-seed="${seed}" aria-hidden="true"></canvas>`;
     const body = `${inner}${tag}<span class="play">${playIcon}</span>`;
     const style = `style="--r:${esc(r)}"`;
-    const name = esc(tr(v.title) || label || "video");
-    if (src && isFile(src)) return `<button class="frame" type="button" ${style} data-play="${esc(src)}" aria-label="▶ ${name}">${body}</button>`;
-    if (src) return `<a class="frame" ${style} href="${esc(src)}" target="_blank" rel="noopener" aria-label="▶ ${name}">${body}</a>`;
+    const name = esc(`${word("play")}: ${tr(v.title) || label || "video"}`);
+    if (src && isFile(src)) return `<button class="frame" type="button" ${style} data-play="${esc(src)}" aria-label="${name}">${body}</button>`;
+    if (src) return `<a class="frame" ${style} href="${esc(src)}" target="_blank" rel="noopener" aria-label="${name}">${body}</a>`;
     return `<div class="frame is-empty" ${style}>${body}</div>`;
   }
 
@@ -921,7 +925,9 @@ const I18N = {
     $("#more-grid").innerHTML = CONFIG.more.map((v, i) =>
       `<div class="${(v.ratio || "16/9").startsWith("9") ? "is-v" : "is-h"}" data-fold><div class="clip glass tilt">${frame(v, key("cat.", v.label), 300 + i * 53)}</div></div>`).join("");
 
-    $("#quotes").innerHTML = CONFIG.feedback.map((f, i) => {
+    const reviews = CONFIG.feedback || [];
+    $("#feedback").hidden = !reviews.length;
+    $("#quotes").innerHTML = reviews.map((f, i) => {
       const n = tr(f.name);
       return `
       <figure class="quote glass" data-fold>
@@ -972,7 +978,7 @@ const I18N = {
   const remeasure = () => { measure(); queueFold(); };
   function collectFolds() {
     if (reduced) return;
-    folds = $$("[data-fold]");
+    folds = $$("[data-fold]").filter(el => el.offsetParent); // skip blocks in hidden sections
     measure();
     fold();
   }
